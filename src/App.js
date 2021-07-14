@@ -1,16 +1,24 @@
+import React from "react";
 import './App.css';
-// import FunctionComponent from "./Components/FunctionComponent";
-// import ClassComponent from "./Components/ClassComponent";
-// import HomeComponent from './Components/LayoutExercise/HomeComponent';
-// import Databinding from './Databinding/Databinding';
-import BaiTapThucHanhLayout from './Components/BaiTapLayoutComponent/BaiTapThucHanhLayout'
+// import Demo from "./Component/Databinding/Demo";
+// import HandleEvent from "./HandleEvent/HandleEvent";
+import StateDemo from "./StateDemo/StateDemo";
+// import StyleComponent from "./StyleComponent/StyleComponent";
+// import DemoIf from "./Component/CauTrucDieuKhien_ReRender/DemoIf";
+// import EventComponent from "./Component/Databinding/EventComponent";
+// import SinhVien from "./Component/Databinding/SinhVien";
 
 function App() {
   return (
     <div className="App">
-      {/* <HomeComponent/> */}
-      {/* <Databinding/> */}
-      <BaiTapThucHanhLayout/>
+      {/* <BaiTapComponent/> */}
+      {/* <SinhVien/> */}
+      {/* <EventComponent/> */}
+      {/* <DemoIf/> */}
+      {/* <Demo/> */}
+      {/* <HandleEvent/> */}
+      {/* <StyleComponent/> */}
+      <StateDemo/>
     </div>
   );
 }
