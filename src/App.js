@@ -1,5 +1,6 @@
 import './App.css';
-import BaiTapGioHang from './BaiTapGioHang/BaiTapGioHang';
+import BaiTapGioHang from './DemoRedux/BaiTapGioHang/BaiTapGioHang';
+// import ExerciseCart from './BaiTapGioHang/ExerciseCart';
 // import FunctionComponent from "./Components/FunctionComponent";
 // import ClassComponent from "./Components/ClassComponent";
 // import HomeComponent from './Components/LayoutExercise/HomeComponent';
@@ -12,6 +13,7 @@ function App() {
       {/* <HomeComponent/> */}
       {/* <Databinding/> */}
       {/* <BaiTapThucHanhLayout/> */}
+      {/* <ExerciseCart/> */}
       <BaiTapGioHang/>
     </div>
   );
