@@ -1,5 +1,6 @@
 import { combineReducers, createStore } from "redux";
 import BaiTapOanTuXiReducer from "./BaiTapOanTuXiReducer";
+import { baiTapQuanLyNguoiDungReducer } from "./reducers/BaiTapQuanLyNguoiDungReducer";
 import { gioHangReducer } from './reducers/gioHangReducer';
 
 //state trong redux là reducer
@@ -8,7 +9,9 @@ const rootReducer = combineReducers({
     gioHangReducer: gioHangReducer,
 
     //State BaiTapOanTuXi
-    BaiTapOanTuXiReducer
+    BaiTapOanTuXiReducer,
+
+    baiTapQuanLyNguoiDungReducer
 });
 
 export const store = createStore(rootReducer);
