@@ -1,5 +1,6 @@
 import './App.css';
-import BaiTapOanTuXi from './BaiTapRedux/BaiTapOanTuXi/BaiTapOanTuXi';
+import BaiTapBookingTicket from './BaiTapRedux/BaiTapBookingTicket/BaiTapBookingTicket';
+// import BaiTapOanTuXi from './BaiTapRedux/BaiTapOanTuXi/BaiTapOanTuXi';
 // import BaiTapGioHang from './DemoRedux/BaiTapGioHang/BaiTapGioHang';
 // import ExerciseCart from './BaiTapGioHang/ExerciseCart';
 // import FunctionComponent from "./Components/FunctionComponent";
@@ -16,7 +17,8 @@ function App() {
       {/* <BaiTapThucHanhLayout/> */}
       {/* <ExerciseCart/> */}
       {/* <BaiTapGioHang/> */}
-      <BaiTapOanTuXi/>
+      {/* <BaiTapOanTuXi/> */}
+      <BaiTapBookingTicket/>
     </div>
   );
 }

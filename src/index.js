@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 
 //setup redux
-import {store} from './redux/configStore';
+import {store} from './redux/reducers/configStore';
 import {Provider} from 'react-redux';
 
 ReactDOM.render(
