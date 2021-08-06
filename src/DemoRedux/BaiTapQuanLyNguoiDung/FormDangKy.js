@@ -10,84 +10,77 @@ class FormDangKy extends Component {
             email: '',
             hoTen: '',
             soDienThoai: '',
-            maLoaiNguoiDung: '',
+            maLoaiNguoiDung: 'KhachHang'
         },
-        errors : {
+        errors: {
             taiKhoan: '',
             matKhau: '',
             email: '',
             hoTen: '',
             soDienThoai: '',
-            maLoaiNguoiDung: '',
+            maLoaiNguoiDung: ''
         }
-
     }
 
     handleChangeInput = (event) => {
-        let { value, name } = event.target;
-
-        let newValues = {...this.state.values}
-        newValues[name] = value;
-
-        let attrValue = '';
-        let regex;
-        if (event.target.getAttribute('typeEmail'))
+        let { value, name } = event.target; // {valueEmail,email} = <input typeEmail="email" name="email" />
+        let newValues = { ...this.state.values }       // newValues = {taiKhoan:'',matKhau:'',.....}
+        newValues[name] = value;            // newValue['email'] = valueEmail
+        let attrValue = '';                 // attrValue = ''
+        let regex;                          // regex = undefine
+        if (event.target.getAttribute('typeEmail')) // !undefine
         {
-            attrValue = event.target.getAttribute('typeEmail');
-            regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            attrValue = event.target.getAttribute('typeEmail'); //attrValue = email
+            regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; //regex = /.....
         }
-
-        let newErrors = {...this.state.errors}
-        let messageError = '';
-        if(value.trim() === ''){
-            messageError = name + ' không được bỏ trống!'
+        let newErrors = { ...this.state.errors } //newErrors =  {taiKhoan:'',matKhau:'',.....}
+        let messageError = ''; // messageError = ''
+        if (value.trim() === '') {
+            messageError = name + ' không được bỏ trống !';
         }
-        
-        //Nếu là email
-        if(regex){
-            if(attrValue === 'email'){
-                if(!regex.test(value)){
-                    messageError = name + ' phải đúng định dạng!' //email + 'không đúng định dạng'
+        //Nếu là email 
+        if (regex) {
+            if (attrValue === 'email') {
+                if (!regex.test(value)) {
+                    messageError = name + ' phải đúng định dạng!'; //email + ' không đúng định dạng'
                 }
             }
         }
-
-        newErrors[name] = messageError;
-
+        newErrors[name] = messageError; //newErrors[email] = email + ' không đúng định dạng'
+        //Xử lý setState
         this.setState({
-            values: newValues,
-            errors: newErrors,
+            values: newValues, //values = this.state.values cũ nhưng giá trị email đã bị thay đổi 
+            errors: newErrors  //errors = this.state.errors cũ nhưng giá trị email đã bị thay đổi 
         });
     }
 
     handleSubmit = (event) => {
         //Cản sự kiện submit browser
         event.preventDefault();
-        console.log('state', this.state)
-
+        console.log('state', this.state);
+        //Bắt trường hợp lỗi khi sẽ không cho submit
         let valid = true;
-        //Duyệt bắt error phải bằng rỗng hết mới hợp lệ
-        for (let key in this.state.errors){
-            if(this.state.errors[key] !== ''){
+        //Duyệt bắt error phải = rổng hết mới hợp lệ
+        for (let key in this.state.errors) {
+            if (this.state.errors[key] !== '') {
                 valid = false;
                 break;
             }
         }
-
-        //Duyệt bắt tất cả value phải khác rỗng mới hợp lệ
-        for(let key in this.state.values){
-            if(this.state.values[key] === ''){
+        //Duyệt bắt tất cả value phải khác rổng mới hợp lệ
+        for (let key in this.state.values) {
+            if (this.state.values[key] === '') {
                 valid = false;
                 break;
             }
         }
-        if(!valid){//Không hợp lệ
-            alert('Dữ liệu không hợp lệ')
-            return;
+        if (!valid) {//Không hợp lệ
+            alert('Dữ liệu không hợp lệ !')
+            return ;
         }
         //submit lên redux tại đây khi tất cả hợp lệ
         const action = {
-            type: 'TEN_NGUOI_DUNG',
+            type:'THEM_NGUOI_DUNG',
             nguoiDung: this.state.values
         }
 
@@ -140,13 +133,7 @@ class FormDangKy extends Component {
                     </div>
                 </div>
                 <div className="card-footer text-left">
-                    <button className="btn btn-outline-success mr-2" type="submit" onClick={() => {
-                        const action = {
-                            type: 'THEM_NGUOI_DUNG',
-                            
-                        }
-                        this.props.dispatch(action)
-                    }}>Đăng ký</button>
+                    <button className="btn btn-outline-success mr-2" type="submit">Đăng ký</button>
                     <button className="btn btn-outline-primary">Cập nhật</button>
                 </div>
             </form>
