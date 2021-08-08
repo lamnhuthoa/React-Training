@@ -24,7 +24,7 @@ class FormDangKy extends Component {
 
     handleChangeInput = (event) => {
         let { value, name } = event.target; // {valueEmail,email} = <input typeEmail="email" name="email" />
-        let newValues = { ...this.state.values }       // newValues = {taiKhoan:'',matKhau:'',.....}
+        let newValues = { ...this.props.nguoiDung.values }       // newValues = {taiKhoan:'',matKhau:'',.....}
         newValues[name] = value;            // newValue['email'] = valueEmail
         let attrValue = '';                 // attrValue = ''
         let regex;                          // regex = undefine
@@ -33,7 +33,7 @@ class FormDangKy extends Component {
             attrValue = event.target.getAttribute('typeEmail'); //attrValue = email
             regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; //regex = /.....
         }
-        let newErrors = { ...this.state.errors } //newErrors =  {taiKhoan:'',matKhau:'',.....}
+        let newErrors = { ...this.props.nguoiDung.errors } //newErrors =  {taiKhoan:'',matKhau:'',.....}
         let messageError = ''; // messageError = ''
         if (value.trim() === '') {
             messageError = name + ' không được bỏ trống !';
@@ -48,10 +48,17 @@ class FormDangKy extends Component {
         }
         newErrors[name] = messageError; //newErrors[email] = email + ' không đúng định dạng'
         //Xử lý setState
-        this.setState({
-            values: newValues, //values = this.state.values cũ nhưng giá trị email đã bị thay đổi 
-            errors: newErrors  //errors = this.state.errors cũ nhưng giá trị email đã bị thay đổi 
-        });
+        // this.setState({
+        //     values: newValues, //values = this.state.values cũ nhưng giá trị email đã bị thay đổi 
+        //     errors: newErrors  //errors = this.state.errors cũ nhưng giá trị email đã bị thay đổi 
+        // });
+        this.props.dispatch({
+            type: 'HANDLE_CHANGE_INPUT',
+            nguoiDung: {
+                values: newValues,
+                errors: newErrors
+            }
+        })
     }
 
     handleSubmit = (event) => {
@@ -88,6 +95,8 @@ class FormDangKy extends Component {
     }
 
     render() {
+        let {taiKhoan, hoTen, email, matKhau, soDienThoai, maLoaiNguoiDung} = this.props.nguoiDung.values;
+
         return (
             <form className="card mt-5" onSubmit={this.handleSubmit}>
                 <div className="card-header bg-dark text-white">Form đăng ký</div>
@@ -96,34 +105,34 @@ class FormDangKy extends Component {
                         <div className="col-6">
                             <div className="form-group">
                                 <p>Tài khoản</p>
-                                <input className="form-control" name="taiKhoan" onChange={this.handleChangeInput}></input>
+                                <input className="form-control" name="taiKhoan" onChange={this.handleChangeInput} value={taiKhoan}></input>
                                 <p className="text-danger">{this.state.errors.taiKhoan}</p>
                             </div>
                             <div className="form-group">
                                 <p>Mật khẩu</p>
-                                <input className="form-control" name="matKhau" type="password" onChange={this.handleChangeInput}></input>
+                                <input className="form-control" name="matKhau" type="password" onChange={this.handleChangeInput} value={matKhau}></input>
                                 <p className="text-danger">{this.state.errors.matKhau}</p>
                             </div>
                             <div className="form-group">
                                 <p>Email</p>
-                                <input className="form-control" name="email" onChange={this.handleChangeInput}></input>
+                                <input className="form-control" name="email" onChange={this.handleChangeInput} value={email}></input>
                                 <p className="text-danger">{this.state.errors.email}</p>
                             </div>
                         </div>
                         <div className="col-6">
                             <div className="form-group">
                                 <p>Họ tên</p>
-                                <input className="form-control" name="hoTen" onChange={this.handleChangeInput}></input>
+                                <input className="form-control" name="hoTen" onChange={this.handleChangeInput} value={hoTen}></input>
                                 <p className="text-danger">{this.state.errors.hoTen}</p>
                             </div>
                             <div className="form-group">
                                 <p>Số điện thoại</p>
-                                <input className="form-control" name="soDienThoai" onChange={this.handleChangeInput}></input>
+                                <input className="form-control" name="soDienThoai" onChange={this.handleChangeInput} value={soDienThoai}></input>
                                 <p className="text-danger">{this.state.errors.soDienThoai}</p>
                             </div>
                             <div className="form-group">
                                 <p>Mã loại người dùng</p>
-                                <select className="form-control" name="maLoaiNguoiDung" onChange={this.handleChangeInput}>
+                                <select className="form-control" name="maLoaiNguoiDung" onChange={this.handleChangeInput} value={maLoaiNguoiDung}>
                                     <option value="KhachHang">Khách hàng</option>
                                     <option value="QuanTri">Quản trị</option>
                                 </select>
@@ -141,4 +150,11 @@ class FormDangKy extends Component {
     }
 }
 
-export default connect()(FormDangKy)
+const mapStateToProps = state => {
+    return {
+        nguoiDungChinhSua: state.baiTapQuanLyNguoiDungReducer.nguoiDungChinhSua,
+        nguoiDung: state.baiTapQuanLyNguoiDungReducer.nguoiDung
+    }
+}
+
+export default connect(mapStateToProps)(FormDangKy)

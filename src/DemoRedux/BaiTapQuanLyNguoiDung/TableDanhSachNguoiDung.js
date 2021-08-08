@@ -43,7 +43,13 @@ class TableDanhSachNguoiDung extends Component {
                                         }}>
                                             xóa
                                         </button>
-                                        <button class="btn btn-outline-primary">
+                                        <button class="btn btn-outline-primary" onClick={() => {
+                                            const action = {
+                                                type: 'CHINH_SUA',
+                                                nguoiDungChinhSua: nguoiDung
+                                            }
+                                            this.props.dispatch(action)
+                                        }}>
                                             Chỉnh sửa
                                         </button>
                                     </td>
