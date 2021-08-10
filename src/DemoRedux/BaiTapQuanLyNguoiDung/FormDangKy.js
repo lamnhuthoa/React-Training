@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 class FormDangKy extends Component {
 
@@ -83,19 +83,25 @@ class FormDangKy extends Component {
         }
         if (!valid) {//Không hợp lệ
             alert('Dữ liệu không hợp lệ !')
-            return ;
+            return;
         }
-        //submit lên redux tại đây khi tất cả hợp lệ
-        const action = {
-            type:'THEM_NGUOI_DUNG',
-            nguoiDung: this.state.values
-        }
+    }
 
-        this.props.dispatch(action)
+    static getDerivedStateFromProps(newProps, currentState) {
+        //Trường hợp bấm chỉnh sửa thì cần đổi state, còn trường hợp handleChange thì không cần gán props vào state nữa
+        if (newProps.nguoiDungChinhSua.taiKhoan !== currentState.values.taiKhoan) {
+            //return về state mới
+            return {
+                ...currentState,
+                values: newProps.nguoiDungChinhSua
+            }
+        }
+        return currentState;
+
     }
 
     render() {
-        let {taiKhoan, hoTen, email, matKhau, soDienThoai, maLoaiNguoiDung} = this.props.nguoiDung.values;
+        let { taiKhoan, hoTen, email, matKhau, soDienThoai, maLoaiNguoiDung } = this.state.values;
 
         return (
             <form className="card mt-5" onSubmit={this.handleSubmit}>
@@ -153,7 +159,6 @@ class FormDangKy extends Component {
 const mapStateToProps = state => {
     return {
         nguoiDungChinhSua: state.baiTapQuanLyNguoiDungReducer.nguoiDungChinhSua,
-        nguoiDung: state.baiTapQuanLyNguoiDungReducer.nguoiDung
     }
 }
 

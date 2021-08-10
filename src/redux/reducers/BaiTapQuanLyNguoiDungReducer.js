@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 const stateDefault = {
     mangNguoiDung: [
         { taiKhoan: 'nguyenvana', hoTen: 'Nguyễn Văn A', matKhau: '123456789', email: 'nguyenvana@gmail.com', soDienThoai: '0909090909', maLoaiNguoiDung: 'KhachHang' },
@@ -19,24 +12,6 @@ const stateDefault = {
         soDienThoai: '0909090909',
         maLoaiNguoiDung: 'KhachHang'
     },
-    nguoiDung: {
-        values: {
-            taiKhoan: '',
-            matKhau: '',
-            email: '',
-            hoTen: '',
-            soDienThoai: '',
-            maLoaiNguoiDung: 'KhachHang'
-        },
-        errors: {
-            taiKhoan: '',
-            matKhau: '',
-            email: '',
-            hoTen: '',
-            soDienThoai: '',
-            maLoaiNguoiDung: ''
-        }
-    }
 
 }
 
@@ -63,13 +38,30 @@ export const baiTapQuanLyNguoiDungReducer = (state = stateDefault, action) => {
         }
 
         case 'CHINH_SUA': {
-            state.nguoiDung.values = action.nguoiDungChinhSua;
-            state.nguoiDung = {...state.nguoiDung}
+            state.nguoiDungChinhSua = action.nguoiDungChinhSua;
             return { ...state }
         }
 
         case 'HANDLE_CHANGE_INPUT' : {
             state.nguoiDung = action.nguoiDung;
+
+            return {...state}
+        }
+
+        case 'CAP_NHAT_NGUOI_DUNG' : {
+            const mangNguoiDungCapNhat = [...state.mangNguoiDung];
+
+            //Tìm ra người dùng cập nhật
+            let nguoiDungCapNhat = mangNguoiDungCapNhat.find(nguoiDung => nguoiDung.taiKhoan === action.nguoiDungCapNhat.taiKhoan);
+            if(nguoiDungCapNhat){
+                nguoiDungCapNhat.hoTen = action.nguoiDungCapNhat.hoTen;
+                nguoiDungCapNhat.email = action.nguoiDungCapNhat.email;
+                nguoiDungCapNhat.soDienThoai = action.nguoiDungCapNhat.soDienThoai;
+                nguoiDungCapNhat.matKhau = action.nguoiDungCapNhat.matKhau;
+                nguoiDungCapNhat.maLoaiNguoiDung = action.nguoiDungCapNhat.maLoaiNguoiDung;
+            }
+
+            state.mangNguoiDung = mangNguoiDungCapNhat;
             return {...state}
         }
 

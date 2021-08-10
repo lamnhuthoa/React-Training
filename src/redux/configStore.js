@@ -2,6 +2,7 @@ import { combineReducers, createStore } from "redux";
 import BaiTapOanTuXiReducer from "./BaiTapOanTuXiReducer";
 import { baiTapQuanLyNguoiDungReducer } from "./reducers/BaiTapQuanLyNguoiDungReducer";
 import { gioHangReducer } from './reducers/gioHangReducer';
+import { QuanLySinhVienReducer } from "./reducers/QuanLySinhVienReducer";
 
 //state trong redux là reducer
 const rootReducer = combineReducers({
@@ -11,7 +12,9 @@ const rootReducer = combineReducers({
     //State BaiTapOanTuXi
     BaiTapOanTuXiReducer,
 
-    baiTapQuanLyNguoiDungReducer
+    baiTapQuanLyNguoiDungReducer,
+
+    QuanLySinhVienReducer
 });
 
 export const store = createStore(
